@@ -8,7 +8,7 @@ Build serverless, progressive web app (MEET) that fetches data from the Google C
 
 ## User Stories and Scenarios
 
-
+Can be found [here](https://github.com/Luisa-Inc/meet/blob/main/230120_meet_User%20Stories%20and%20Scenarios.pdf)
 
 ## Technologies used
 
