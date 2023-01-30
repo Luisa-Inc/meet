@@ -1,6 +1,10 @@
 # package directories
 node_modules
 jspm_packages
+build
+google92200332ffbb255d.html
+230120_meet_User Stories and Scenarios.pdf
+.node_modules
 
 # Serverless directories
 .serverless
