@@ -2,15 +2,6 @@ import { mockData } from "./mock-data";
 import axios from "axios";
 import NProgress from "nprogress";
 
-const isLocalhost = Boolean(
-  window.location.hostname === "localhost" ||
-    // [::1] is the IPv6 localhost address.
-    window.location.hostname === "[::1]" ||
-    // 127.0.0.0/8 are considered localhost for IPv4.
-    window.location.hostname.match(
-      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
-    )
-);
 
 export const getAccessToken = async () => {
   const accessToken = localStorage.getItem("access_token");
@@ -33,9 +24,9 @@ export const getAccessToken = async () => {
   return accessToken;
 };
 
-export const checkToken = async (accessToken) => {
+const checkToken = async (accessToken) => {
   const result = await fetch(
-    "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}"
+    `https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=${accessToken}`
   )
     .then((res) => res.json())
     .catch((error) => error.json());
@@ -45,22 +36,20 @@ export const checkToken = async (accessToken) => {
 
 export const getEvents = async () => {
   NProgress.start();
-  if (isLocalhost) {
+
+  if (window.location.href.startsWith("http://localhost")) {
     NProgress.done();
     return mockData;
-  }
-
-  if (!navigator.onLine) {
-    const data = localStorage.getItem("lastEvents");
-    NProgress.done();
-    return data ? JSON.parse(data).events : [];
   }
 
   const token = await getAccessToken();
 
   if (token) {
     removeQuery();
-    const url = "https://59i7ltvzyg.execute-api.eu-central-1.amazonaws.com/dev/api/get-events/${token}";
+    const url =
+      "https://59i7ltvzyg.execute-api.eu-central-1.amazonaws.com/dev/api/get-events" +
+      "/" +
+      token;
     const result = await axios.get(url);
     if (result.data) {
       var locations = extractLocations(result.data.events);
@@ -95,7 +84,9 @@ const removeQuery = () => {
 const getToken = async (code) => {
   const encodeCode = encodeURIComponent(code);
   const { access_token } = await fetch(
-    "https://59i7ltvzyg.execute-api.eu-central-1.amazonaws.com/dev/api/token/${encodeCode"
+    "https://59i7ltvzyg.execute-api.eu-central-1.amazonaws.com/dev/api/token" +
+      "/" +
+      encodeCode
   )
     .then((res) => {
       return res.json();
