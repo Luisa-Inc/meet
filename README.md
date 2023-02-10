@@ -1,7 +1,3 @@
----
-permalink: /src/index.js
----
-
 # meet
 
 ## Objective
