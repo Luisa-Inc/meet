@@ -5,7 +5,6 @@ import "./nprogress.css";
 import CitySearch from "./CitySearch";
 import NumberOfEvents from "./NumberOfEvents";
 import EventList from "./EventList";
-import TopBar from "./TopBar";
 // DATA / FUNCS //////////
 import { getEvents, extractLocations } from "./api";
 
