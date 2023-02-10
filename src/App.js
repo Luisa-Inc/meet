@@ -74,7 +74,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <TopBar />
         <div className="filter-box">
           <CitySearch
             locations={this.state.locations}
