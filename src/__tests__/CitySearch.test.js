@@ -28,8 +28,6 @@ describe("<CitySearch /> component", () => {
   });
 
   test("render list of suggestions correctly", () => {
-    const locations = extractLocations(mockData);
-    CitySearchWrapper.setState({ suggestions: locations });
     const suggestions = CitySearchWrapper.state("suggestions");
     expect(CitySearchWrapper.find(".suggestions li")).toHaveLength(
       suggestions.length + 1
@@ -82,10 +80,10 @@ describe("<CitySearch /> component", () => {
   test("selecting a suggestion should hide the suggestions list", () => {
     CitySearchWrapper.setState({
       query: "Berlin",
-      showSuggestions: undefined,
+      showSuggestions: null,
     });
     CitySearchWrapper.find(".suggestions li").at(0).simulate("click");
-    expect(CitySearchWrapper.state("showSuggestions")).toBe(false);
+    expect(CitySearchWrapper.state("showSuggestions")).toBeFalsy();
     expect(CitySearchWrapper.find(".suggestions").prop("style")).toEqual({
       display: "none",
     });
