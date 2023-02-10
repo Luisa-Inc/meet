@@ -90,5 +90,4 @@ describe("<CitySearch /> component", () => {
       display: "none",
     });
   });
-
 });

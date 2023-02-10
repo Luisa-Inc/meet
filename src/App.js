@@ -7,7 +7,6 @@ import NumberOfEvents from "./NumberOfEvents";
 import EventList from "./EventList";
 import { getEvents, extractLocations } from "./api";
 
-
 class App extends Component {
   state = {
     events: [],
