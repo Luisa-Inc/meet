@@ -2,7 +2,7 @@
 
 ## Objective
 
-Build serverless, progressive web app (MEET) that fetches data from the Google Calendar API
+Building a serverless, progressive web app (MEET) that fetches data from the Google Calendar API
 - Serverless: No backend maintenance, easy to scale, always available, no cost for idle time
 - PWAs: Instant loading, offline support, push notifications, “add to home screen” prompt, responsive design, and cross-platform compatibility
 
