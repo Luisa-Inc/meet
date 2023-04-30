@@ -3,38 +3,29 @@ import { shallow } from "enzyme";
 import NumberOfEvents from "../NumberOfEvents";
 
 describe("<NumberOfEvents /> component", () => {
-  let NumberOfEventsWrapper;
-  beforeAll(() => {
-    NumberOfEventsWrapper = shallow(
-      <NumberOfEvents updateNumberOfEvents={() => {}} updateEvents={() => {}} />
+  test("render text input", () => {
+    const NumberOfEventsWrapper = shallow(
+      <NumberOfEvents updateNumberOfResults={() => {}} />
     );
+    expect(NumberOfEventsWrapper.find(".event-number-input")).toHaveLength(1);
   });
 
-  // test 1: checks the basic component is rendered
-  test("renders the component", () => {
-    expect(NumberOfEventsWrapper).toBeDefined();
-  });
-
-  // test 2: the default number of events shown is 32
-  test("user sees 32 events by default", () => {
-    expect(NumberOfEventsWrapper.find("input.number").prop("type")).toBe(
-      "number"
+  test("change number of events", () => {
+    const NumberOfEventsWrapper = shallow(
+      <NumberOfEvents updateNumberOfResults={() => {}} />
     );
-    expect(NumberOfEventsWrapper.state("number")).toBe(32);
+    const eventObject = { target: { value: 10 } };
+    NumberOfEventsWrapper.find(".event-number-input").simulate(
+      "change",
+      eventObject
+    );
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(10);
   });
 
-  // test 3: the input function is rendered correctly
-  test("renders input correctly", () => {
-    const number = NumberOfEventsWrapper.state("number");
-    expect(NumberOfEventsWrapper.find(".number").prop("value")).toBe(number);
-  });
-
-  // test 4: the component changes state when user inputs value 10
-  test("change state when user input changes", () => {
-    expect(NumberOfEventsWrapper.state("number")).toBe(32);
-    NumberOfEventsWrapper.find("input.number").simulate("change", {
-      target: { value: 12 },
-    });
-    expect(NumberOfEventsWrapper.state("number")).toBe(12);
+  test("default number of events is 32", () => {
+    const NumberOfEventsWrapper = shallow(
+      <NumberOfEvents updateNumberOfResults={() => {}} />
+    );
+    expect(NumberOfEventsWrapper.state("numberOfEvents")).toBe(32);
   });
 });
