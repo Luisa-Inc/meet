@@ -1,16 +1,11 @@
-Feature: Show/hide an event details
+Feature: Specify number of events
 
-Scenario: An event element is collapsed by default
-Given information of an event has been loaded
-When a user first sees an event
-Then the event’s details will not be visible yet
+Scenario: When user hasn’t specified a number, 32 is the default number
+Given a blank number of events field
+When a user clicks search
+Then show the default number of 32 events to be displayed
 
-Scenario: User can expand an event to see its details
-Given information of an event has been loaded
-When a user clicks a collapsed event panel
-Then the user will be able to see the details of the event
-
-Scenario: User can collapse an event to hide its details
-Given an event’s details are visible
-When a user clicks “hids” or “collapse” button
-Then the event’s details will become hidden
+Scenario: User can change the number of events they want to see
+Given a user enters a number in the number of events field
+When the user is on the event search page
+Then display the number of events specified by the user
