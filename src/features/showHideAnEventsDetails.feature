@@ -1,11 +1,16 @@
-Feature: Specify number of events
+Feature: Show/hide an event details
 
-Scenario: When user hasn’t specified a number, 32 is the default number
-Given a blank number of events field
-When a user clicks search
-Then show the default number of 32 events to be displayed
+Scenario: An event element is collapsed by default
+Given user has searched for a city
+When the events are listed
+Then the event details should be collapsed by default
 
-Scenario: User can change the number of events they want to see
-Given a user enters a number in the number of events field
-When the user is on the event search page
-Then display the number of events specified by the user
+Scenario: User can expand an event to see its details
+Given the city-search list is displayed
+When a user clicks on the details button
+Then the event details should expand displaying its details
+
+Scenario: User can collapse an event to hide its details
+Given an event details are expanded
+When user clicks collapse button
+Then the details should collapse within the specific event, hiding its details
