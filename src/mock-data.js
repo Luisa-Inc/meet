@@ -40,7 +40,6 @@ const mockData = [
     },
     eventType: "default",
   },
-
   {
     kind: "calendar#event",
     etag: '"3181159875584000"',
