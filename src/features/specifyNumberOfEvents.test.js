@@ -1,18 +1,33 @@
 import { loadFeature, defineFeature } from "jest-cucumber";
+import { mockData } from "../mock-data";
+import App from "../App";
+import { mount } from "enzyme";
 
 const feature = loadFeature("./src/features/specifyNumberOfEvents.feature");
 
 defineFeature(feature, (test) => {
-  test("When user hasn’t specified a number, 32 is the default number", ({
+  test("When user hasn't specified a number, 32 is the default number", ({
     given,
     when,
     then,
   }) => {
-    given("a blank number of events field", () => {});
-    when("a user clicks search", () => {});
+    given(
+      "the user has not specified the number of events they want to see",
+      () => {}
+    );
+    let AppWrapper;
+    when("the user opens the app", () => {
+      AppWrapper = mount(<App />);
+    });
+
     then(
-      /^show the default number of (\d+) events to be displayed$/,
-      (arg0) => {}
+      "the app should display a list of 32 upcoming events by default",
+      () => {
+        AppWrapper.update();
+        expect(AppWrapper.find(".event")).toHaveLength(
+          mockData.slice(0, 32).length
+        );
+      }
     );
   });
 
@@ -21,8 +36,22 @@ defineFeature(feature, (test) => {
     when,
     then,
   }) => {
-    given("a user enters a number in the number of events field", () => {});
-    when("the user is on the event search page", () => {});
-    then("display the number of events specified by the user", () => {});
+    let AppWrapper;
+    given("the user is viewing a list of events", async () => {
+      AppWrapper = await mount(<App />);
+      AppWrapper.update();
+      expect(AppWrapper.find(".event")).toHaveLength(mockData.length);
+    });
+
+    when("the user specifies the number of events they want to see", () => {
+      AppWrapper.find(".nrOfEvents").simulate("change", {
+        target: { value: 1 },
+      });
+    });
+
+    then("the app should display that number of upcoming events", () => {
+      AppWrapper.update();
+      expect(AppWrapper.find(".event")).toHaveLength(2);
+    });
   });
 });

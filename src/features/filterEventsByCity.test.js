@@ -1,23 +1,23 @@
+import { loadFeature, defineFeature } from "jest-cucumber";
 import React from "react";
 import { mount, shallow } from "enzyme";
 import App from "../App";
-import { extractLocations } from "../api";
-import { mockData } from "../mock-data";
 import CitySearch from "../CitySearch";
-import { loadFeature, defineFeature } from "jest-cucumber";
+import { mockData } from "../mock-data";
+import { extractLocations } from "../api";
 
 const feature = loadFeature("./src/features/filterEventsByCity.feature");
-const locations = extractLocations(mockData);
 
 defineFeature(feature, (test) => {
-  test("When user has not searched for a city, show upcoming events from all cities.", ({
+  test("When user hasn't searched for a city, show upcoming events from all cities.", ({
     given,
     when,
     then,
   }) => {
-    given("user has not searched for any city", () => {});
+    given("user hasn't searched for any city", () => {});
 
     let AppWrapper;
+
     when("the user opens the app", () => {
       AppWrapper = mount(<App />);
     });
@@ -33,10 +33,12 @@ defineFeature(feature, (test) => {
     when,
     then,
   }) => {
-    let CitySearchWrapper;
+    let CitySearchWrapper, locations;
+
     given("the main page is open", () => {
+      locations = extractLocations(mockData);
       CitySearchWrapper = shallow(
-        <CitySearch locations={locations} updateEvents={() => {}} />
+        <CitySearch updateEvents={() => {}} locations={locations} />
       );
     });
 
@@ -47,7 +49,7 @@ defineFeature(feature, (test) => {
     });
 
     then(
-      "the user should receive a list of cities (suggestions) that match what they have typed",
+      "the user should receive a list of cities (suggestions) that match what they've typed",
       () => {
         expect(CitySearchWrapper.find(".suggestions li")).toHaveLength(2);
       }
@@ -61,6 +63,7 @@ defineFeature(feature, (test) => {
     then,
   }) => {
     let AppWrapper;
+
     given("user was typing “Berlin” in the city textbox", async () => {
       AppWrapper = await mount(<App />);
       AppWrapper.find(".city").simulate("change", {
@@ -91,7 +94,8 @@ defineFeature(feature, (test) => {
     and(
       "the user should receive a list of upcoming events in that city",
       () => {
-        expect(AppWrapper.find(".event")).toHaveLength(mockData.length);
+        AppWrapper.update();
+        expect(AppWrapper.find(".event")).toHaveLength(1);
       }
     );
   });

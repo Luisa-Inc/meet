@@ -39,7 +39,7 @@
     "deploy": "gh-pages -d build",
     "start-server": "react-scripts start",
     "test:e2e": "concurrently \"npm run start-server\" \"npm run test\"",
-    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom"
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom --detectOpenHandles"
   },
   "eslintConfig": {
     "extends": [
