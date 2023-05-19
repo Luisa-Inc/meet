@@ -24,7 +24,7 @@ defineFeature(feature, (test) => {
       "the app should display a list of 32 upcoming events by default",
       () => {
         AppWrapper.update();
-        expect(AppWrapper.find(".event")).toHaveLength(
+        expect(AppWrapper.find(".Event")).toHaveLength(
           mockData.slice(0, 32).length
         );
       }
@@ -40,18 +40,18 @@ defineFeature(feature, (test) => {
     given("the user is viewing a list of events", async () => {
       AppWrapper = await mount(<App />);
       AppWrapper.update();
-      expect(AppWrapper.find(".event")).toHaveLength(mockData.length);
+      expect(AppWrapper.find(".Event")).toHaveLength(mockData.length);
     });
 
     when("the user specifies the number of events they want to see", () => {
-      AppWrapper.find(".nrOfEvents").simulate("change", {
+      AppWrapper.find(".event-number-input").simulate("change", {
         target: { value: 1 },
       });
     });
 
     then("the app should display that number of upcoming events", () => {
       AppWrapper.update();
-      expect(AppWrapper.find(".event")).toHaveLength(2);
+      expect(AppWrapper.find(".Event")).toHaveLength(2);
     });
   });
 });

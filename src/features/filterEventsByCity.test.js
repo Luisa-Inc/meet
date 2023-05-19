@@ -24,7 +24,7 @@ defineFeature(feature, (test) => {
 
     then("the user should see the list of upcoming events.", () => {
       AppWrapper.update();
-      expect(AppWrapper.find(".event")).toHaveLength(mockData.length);
+      expect(AppWrapper.find(".Event")).toHaveLength(mockData.length);
     });
   });
 
@@ -95,7 +95,7 @@ defineFeature(feature, (test) => {
       "the user should receive a list of upcoming events in that city",
       () => {
         AppWrapper.update();
-        expect(AppWrapper.find(".event")).toHaveLength(1);
+        expect(AppWrapper.find(".Event")).toHaveLength(1);
       }
     );
   });

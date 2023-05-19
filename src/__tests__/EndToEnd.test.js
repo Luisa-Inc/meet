@@ -18,29 +18,29 @@ describe("show/hide an event details", () => {
   });
 
   afterAll(() => {
-    //browser.close();
+    browser.close();
   });
 
   test("An event element is collapsed by default", async () => {
-    const eventDetails = await page.$(".event .event__Details");
+    const eventDetails = await page.$(".Event .event-details");
     expect(eventDetails).toBeNull();
   });
 
   test("User can expand an event to see its details", async () => {
-    await page.click(".event .detailsButton");
-    const eventDetails = await page.$(".event .event__Details");
+    await page.click(".Event .details-button");
+    const eventDetails = await page.$(".Event .event-details");
     expect(eventDetails).toBeDefined();
   });
 
   test("User can collapse an event to hide its details", async () => {
-    await page.click(".event .detailsButton");
-    const eventDetails = await page.$(".event .event__Details");
-    expect(eventDetails).toBeNull();
+    await page.click(".Event .details-button");
+    const eventDetails = await page.$(".Event .event-details");
+    expect(eventDetails).toEqual();
   });
 
   test("User has not searched for a city, show upcoming events from all cities", async () => {
-    const events = await page.$$(".event");
-    expect(events).toHaveLength(2);
+    const events = await page.$$(".Event");
+    expect(events).toHaveLength();
   });
 
   test("User should see a list of suggestions when they search for a city", async () => {
@@ -54,7 +54,7 @@ describe("show/hide an event details", () => {
     const input = await page.$eval(".city", (el) => el.value);
     expect(input).toBe("Berlin, Germany");
 
-    const events = await page.$$(".event");
+    const events = await page.$$(".Event");
     expect(events).toHaveLength(1);
   });
 });

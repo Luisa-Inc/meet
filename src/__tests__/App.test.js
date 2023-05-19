@@ -89,7 +89,7 @@ describe("<App /> integration", () => {
   test("Filtered list of events matches mock data", async () => {
     const AppWrapper = mount(<App />);
     const NumberOfEventsWrapper = AppWrapper.find(NumberOfEvents);
-    NumberOfEventsWrapper.find(".number").simulate("change", {
+     NumberOfEventsWrapper.find(".event-number-input").simulate("change", {
       target: { value: 20 },
     });
     await getEvents();
