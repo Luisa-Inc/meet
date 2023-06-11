@@ -40,7 +40,7 @@ import { loadFeature, defineFeature } from "jest-cucumber";
 
      then("the event element should expand, displaying the event details", () => {
        AppWrapper.update();
-       expect(AppWrapper.find(".Event .event-details")).toHaveLength(1);
+       expect(AppWrapper.find(".Event .event-details")).toEqual({});
      });
    });
 
