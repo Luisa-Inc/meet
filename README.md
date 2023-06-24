@@ -1,5 +1,7 @@
 # meet
 
+Link to the App can be found [here](https://luisa-inc.github.io/meet/)
+
 ## Objective
 
 Build serverless, progressive web app (MEET) that fetches data from the Google Calendar API
