@@ -46,7 +46,7 @@ class App extends Component {
 
     getEvents().then((events) => {
       let locationEvents =
-        location === "all"
+        location === null
           ? events
           : events.filter((event) => event.location === location);
 
