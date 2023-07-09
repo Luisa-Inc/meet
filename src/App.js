@@ -4,7 +4,6 @@ import EventList from "./EventList";
 import CitySearch from "./CitySearch";
 import NumberofEvents from "./NumberofEvents";
 import EventGenre from "./EventGenre";
-//import { getEvents, extractLocations } from './api';
 import { getEvents, extractLocations, checkToken, getAccessToken } from "./api";
 import "./nprogress.css";
 import WelcomeScreen from "./WelcomeScreen";
@@ -22,49 +21,36 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    currentLocation: null,
-    numberOfEvents: 32,
-    warningText: "",
+    seletedLocation: "all",
+    eventCount: 32,
     showWelcomeScreen: undefined,
   };
 
-  updateEvents = (location, eventCount) => {
+  updateEvents = (location, inputNumber) => {
+    const { eventCount, seletedLocation } = this.state;
     if (location) {
-      this.setState({
-        currentLocationlocation: location,
+      getEvents().then((events) => {
+        const locationEvents =
+          location === "all"
+            ? events
+            : events.filter((event) => event.location === location);
+        const eventsToShow = locationEvents.slice(0, eventCount);
+        this.setState({
+          events: eventsToShow,
+          seletedLocation: location,
+        });
       });
     } else {
-      location = this.state.currentLocation;
-    }
-    if (eventCount) {
-      this.setState({
-        numberOfEvents: eventCount,
-      });
-    } else {
-      eventCount = this.state.numberOfEvents;
-    }
-
-    getEvents().then((events) => {
-      let locationEvents =
-        location === null
-          ? events
-          : events.filter((event) => event.location === location);
-
-      if (eventCount && eventCount < locationEvents.length) {
-        locationEvents = locationEvents.slice(0, eventCount);
-      }
-      this.setState({
-        events: locationEvents,
-      });
-    });
-
-    if (!navigator.onLine) {
-      this.setState({
-        warningText: "You seem to be offline; events were pulled from cache.",
-      });
-    } else {
-      this.setState({
-        warningText: "",
+      getEvents().then((events) => {
+        const locationEvents =
+          seletedLocation === "all"
+            ? events
+            : events.filter((event) => event.location === seletedLocation);
+        const eventsToShow = locationEvents.slice(0, inputNumber);
+        this.setState({
+          events: eventsToShow,
+          eventCount: inputNumber,
+        });
       });
     }
   };
