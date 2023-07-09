@@ -22,8 +22,8 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    selectedCity: null,
     eventCount: 32,
+    selectedCity: null,
     warningText: "",
     showWelcomeScreen: undefined,
   };
