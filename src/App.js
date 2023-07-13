@@ -95,9 +95,8 @@ class App extends Component {
           }}
         />
         <NumberofEvents
-          updateEvents={(count) => {
-            this.updateEvents(undefined, count);
-          }}
+          numberOfEvents={this.state.numberOfEvents}
+          updateEvents={this.updateEvents}
         />
 
         <h4>Events in each city</h4>
