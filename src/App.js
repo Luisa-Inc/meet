@@ -44,9 +44,9 @@ class App extends Component {
 
     getEvents().then((events) => {
       let locationEvents =
-        location === null
-          ? events
-          : events.filter((event) => event.location === location);
+        location
+          ? events.filter((event) => event.location === location)
+          : events;
 
       if (eventCount && eventCount < locationEvents.length) {
         locationEvents = locationEvents.slice(0, eventCount);
@@ -96,7 +96,9 @@ class App extends Component {
         />
         <NumberofEvents
           numberOfEvents={this.state.numberOfEvents}
-          updateEvents={this.updateEvents}
+          updateEvents={(count) => {
+            this.updateEvents(undefined, count);
+          }}
         />
 
         <h4>Events in each city</h4>
